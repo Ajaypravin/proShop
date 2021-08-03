@@ -1,7 +1,9 @@
 import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
-import products from "../backend/data/products.js";
+
+import productRoute from "./routes/productRoutes.js";
+import { notFound, errorHandler } from "./middleware/errorMiddlewares.js";
 
 const app = express();
 dotenv.config();
@@ -11,18 +13,11 @@ connectDB();
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
+app.use("/api/products", productRoute);
 
-app.get("/", (req, res) => {
-  res.send("backend api ");
-});
+//error handler
 
-app.get("/api/products", (req, res) => {
-  res.json(products);
-});
-
-app.get("/api/products/:id", (req, res) => {
-  const product = products.find((p) => p._id === req.params.id);
-  res.json(product);
-});
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(PORT, console.log("server is listening...."));
