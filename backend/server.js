@@ -4,10 +4,10 @@ import connectDB from "./config/db.js";
 import products from "../backend/data/products.js";
 
 const app = express();
+dotenv.config();
 
 connectDB();
 
-dotenv.config();
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
