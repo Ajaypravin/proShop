@@ -15,7 +15,7 @@ const ProductScreen = ({ match }) => {
 
   useEffect(() => {
     fetchProduct();
-  }, []);
+  }, [match]);
 
   return (
     <>
